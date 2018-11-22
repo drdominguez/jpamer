@@ -1,10 +1,10 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-public class AccidenteVehiculo implements Serializable {
+public class AccidenteLocalidad {
 
     @Id
     @ManyToOne
@@ -12,25 +12,23 @@ public class AccidenteVehiculo implements Serializable {
 
     @Id
     @ManyToOne
-    private Vehiculo vehiculo;
+    private Localidad localidad;
 
-    public AccidenteVehiculo() {
-    }
-
-    public AccidenteVehiculo(Accidente accidente, Vehiculo vehiculo) {
-        this.accidente = accidente;
-        this.vehiculo = vehiculo;
-    }
-
+	public AccidenteLocalidad() {
+	}
+	public AccidenteLocalidad(Accidente accidente, Localidad localidad) {
+		this.accidente = accidente;
+		this.localidad = localidad;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accidente == null) ? 0 : accidente.hashCode());
-		result = prime * result + ((vehiculo == null) ? 0 : vehiculo.hashCode());
+		result = prime * result + ((localidad == null) ? 0 : localidad.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -39,18 +37,17 @@ public class AccidenteVehiculo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AccidenteVehiculo other = (AccidenteVehiculo) obj;
+		AccidenteLocalidad other = (AccidenteLocalidad) obj;
 		if (accidente == null) {
 			if (other.accidente != null)
 				return false;
 		} else if (!accidente.equals(other.accidente))
 			return false;
-		if (vehiculo == null) {
-			if (other.vehiculo != null)
+		if (localidad == null) {
+			if (other.localidad != null)
 				return false;
-		} else if (!vehiculo.equals(other.vehiculo))
+		} else if (!localidad.equals(other.localidad))
 			return false;
 		return true;
 	}
-
 }

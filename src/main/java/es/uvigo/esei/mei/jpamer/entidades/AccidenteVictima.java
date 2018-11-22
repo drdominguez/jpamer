@@ -1,10 +1,7 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
 import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
 public class AccidenteVictima implements Serializable {

@@ -1,33 +1,33 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-public class AccidenteVehiculo implements Serializable {
+public class AccidenteVia {
 
-    @Id
+	@Id
     @ManyToOne
     private Accidente accidente;
 
     @Id
     @ManyToOne
-    private Vehiculo vehiculo;
-
-    public AccidenteVehiculo() {
-    }
-
-    public AccidenteVehiculo(Accidente accidente, Vehiculo vehiculo) {
-        this.accidente = accidente;
-        this.vehiculo = vehiculo;
-    }
+    private Via via;
+    
+	public AccidenteVia() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public AccidenteVia(Accidente accidente, Via via) {
+		this.accidente = accidente;
+		this.via = via;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accidente == null) ? 0 : accidente.hashCode());
-		result = prime * result + ((vehiculo == null) ? 0 : vehiculo.hashCode());
+		result = prime * result + ((via == null) ? 0 : via.hashCode());
 		return result;
 	}
 
@@ -39,16 +39,16 @@ public class AccidenteVehiculo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AccidenteVehiculo other = (AccidenteVehiculo) obj;
+		AccidenteVia other = (AccidenteVia) obj;
 		if (accidente == null) {
 			if (other.accidente != null)
 				return false;
 		} else if (!accidente.equals(other.accidente))
 			return false;
-		if (vehiculo == null) {
-			if (other.vehiculo != null)
+		if (via == null) {
+			if (other.via != null)
 				return false;
-		} else if (!vehiculo.equals(other.vehiculo))
+		} else if (!via.equals(other.via))
 			return false;
 		return true;
 	}

@@ -1,8 +1,6 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
 import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,50 +15,52 @@ public class Vehiculo implements Serializable {
 
     private int año;
 
-    private String tipo_vehiculo;
+    private enum TipoVehiculo{TURISMO,BICICLETA,CICLOMOTOR,QUAD,AUTOBÚS,CAMIÓN,ESPECIAL};
 
+    TipoVehiculo tipoVehiculo;
+    
     /*@Embedded
     private Direccion direccion;*/
 
     public Vehiculo() {
     }
 
-    public Vehiculo(int año, String tipo_vehiculo) {
+    public Vehiculo(int año, TipoVehiculo tipoVehiculo) {
         this.año = año;
-        this.tipo_vehiculo = tipo_vehiculo;
+        this.tipoVehiculo = tipoVehiculo;
     }
 
-    public String getMatricula() {
-        return matricula;
-    }
+	public String getMatricula() {
+		return matricula;
+	}
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
 
-    public int getAño() {
-        return año;
-    }
+	public int getAño() {
+		return año;
+	}
 
-    public void setAño(int año) {
-        this.año = año;
-    }
+	public void setAño(int año) {
+		this.año = año;
+	}
 
-    public String tipo_vehiculo() {
-        return tipo_vehiculo;
-    }
+	public TipoVehiculo getTipoVehiculo() {
+		return tipoVehiculo;
+	}
 
-    public void setTipo_vehiculo(String tipo_vehiculo) {
-        this.tipo_vehiculo = tipo_vehiculo;
-    }
+	public void setTipoVehiculo(TipoVehiculo tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + año;
 		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
-		result = prime * result + ((tipo_vehiculo == null) ? 0 : tipo_vehiculo.hashCode());
+		result = prime * result + ((tipoVehiculo == null) ? 0 : tipoVehiculo.hashCode());
 		return result;
 	}
 
@@ -80,17 +80,14 @@ public class Vehiculo implements Serializable {
 				return false;
 		} else if (!matricula.equals(other.matricula))
 			return false;
-		if (tipo_vehiculo == null) {
-			if (other.tipo_vehiculo != null)
-				return false;
-		} else if (!tipo_vehiculo.equals(other.tipo_vehiculo))
+		if (tipoVehiculo != other.tipoVehiculo)
 			return false;
 		return true;
 	}
 
 	@Override
-    public String toString() {
-        return "Vehiculo{" + "matricula=" + matricula + ", año=" + año + ", tipo de vehiculo=" + tipo_vehiculo + '}';
-    }
+	public String toString() {
+		return "Vehiculo [matricula=" + matricula + ", año=" + año + ", tipoVehiculo=" + tipoVehiculo + "]";
+	}
 
 }

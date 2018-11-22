@@ -1,8 +1,6 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Embedded;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,14 +10,13 @@ import javax.persistence.Id;
 public class Via {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idVia;
+    private long idVia;
 
-    private String tipo_via;
+    private String nombre;
 
-    private String red_carretera;
-    
-    private String tipo_interseccion;
+    private enum TipoVia{CONVENCIONAL,AUTOVIA,AUTOPISTA,NACIONAL,SECUNDARIA};
 
+    TipoVia tipoVia;
     /*@Embedded
     private Direccion direccion;*/
 
@@ -27,52 +24,42 @@ public class Via {
 		// TODO Auto-generated constructor stub
 	}
 
-    public Via(String tipo_via, String red_carretera, String tipo_interseccion) {
-        this.tipo_via = tipo_via;
-        this.red_carretera = red_carretera;
-        this.tipo_interseccion = tipo_interseccion;
+    public Via(String nombre, TipoVia tipoVia) {
+        this.nombre = nombre;
+        this.tipoVia = tipoVia;
     }
 
-	public int getIdVia() {
+	public long getIdVia() {
 		return idVia;
 	}
 
-	public void setIdVia(int idVia) {
+	public void setIdVia(long idVia) {
 		this.idVia = idVia;
 	}
 
-	public String getTipo_via() {
-		return tipo_via;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setTipo_via(String tipo_via) {
-		this.tipo_via = tipo_via;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getRed_carretera() {
-		return red_carretera;
+	public TipoVia getTipoVia() {
+		return tipoVia;
 	}
 
-	public void setRed_carretera(String red_carretera) {
-		this.red_carretera = red_carretera;
-	}
-
-	public String getTipo_interseccion() {
-		return tipo_interseccion;
-	}
-
-	public void setTipo_interseccion(String tipo_interseccion) {
-		this.tipo_interseccion = tipo_interseccion;
+	public void setTipoVia(TipoVia tipoVia) {
+		this.tipoVia = tipoVia;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + idVia;
-		result = prime * result + ((red_carretera == null) ? 0 : red_carretera.hashCode());
-		result = prime * result + ((tipo_interseccion == null) ? 0 : tipo_interseccion.hashCode());
-		result = prime * result + ((tipo_via == null) ? 0 : tipo_via.hashCode());
+		result = prime * result + (int) (idVia ^ (idVia >>> 32));
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((tipoVia == null) ? 0 : tipoVia.hashCode());
 		return result;
 	}
 
@@ -87,28 +74,19 @@ public class Via {
 		Via other = (Via) obj;
 		if (idVia != other.idVia)
 			return false;
-		if (red_carretera == null) {
-			if (other.red_carretera != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!red_carretera.equals(other.red_carretera))
+		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (tipo_interseccion == null) {
-			if (other.tipo_interseccion != null)
-				return false;
-		} else if (!tipo_interseccion.equals(other.tipo_interseccion))
-			return false;
-		if (tipo_via == null) {
-			if (other.tipo_via != null)
-				return false;
-		} else if (!tipo_via.equals(other.tipo_via))
+		if (tipoVia != other.tipoVia)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Via [idVia=" + idVia + ", tipo_via=" + tipo_via + ", red_carretera=" + red_carretera
-				+ ", tipo_interseccion=" + tipo_interseccion + "]";
+		return "Via [idVia=" + idVia + ", nombre=" + nombre + ", tipoVia=" + tipoVia + "]";
 	}
 
 }

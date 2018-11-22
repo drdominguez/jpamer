@@ -1,9 +1,5 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +9,9 @@ public class Localidad {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idlocalidad;
+    private long idlocalidad;
+	
+	private String nombre;
 
     private String provincia;
 
@@ -26,17 +24,26 @@ public class Localidad {
 		// TODO Auto-generated constructor stub
 	}
 
-    public Localidad(String provincia, String comunidad) {
+    public Localidad(String nombre, String provincia, String comunidad) {
+    	this.nombre = nombre;
         this.provincia = provincia;
         this.comunidad = comunidad;
     }
 
-	public int getIdlocalidad() {
+	public long getIdlocalidad() {
 		return idlocalidad;
 	}
 
-	public void setIdlocalidad(int idlocalidad) {
+	public void setIdlocalidad(long idlocalidad) {
 		this.idlocalidad = idlocalidad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getProvincia() {
@@ -60,7 +67,8 @@ public class Localidad {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comunidad == null) ? 0 : comunidad.hashCode());
-		result = prime * result + idlocalidad;
+		result = prime * result + (int) (idlocalidad ^ (idlocalidad >>> 32));
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((provincia == null) ? 0 : provincia.hashCode());
 		return result;
 	}
@@ -81,6 +89,11 @@ public class Localidad {
 			return false;
 		if (idlocalidad != other.idlocalidad)
 			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
 		if (provincia == null) {
 			if (other.provincia != null)
 				return false;
@@ -91,7 +104,8 @@ public class Localidad {
 
 	@Override
 	public String toString() {
-		return "Localidad [idlocalidad=" + idlocalidad + ", provincia=" + provincia + ", comunidad=" + comunidad + "]";
+		return "Localidad [idlocalidad=" + idlocalidad + ", nombre=" + nombre + ", provincia=" + provincia
+				+ ", comunidad=" + comunidad + "]";
 	}
 
 }

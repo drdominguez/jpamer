@@ -1,31 +1,24 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
 import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Entity;
+import java.util.List;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 public class AccidenteFactorRiesgo implements Serializable {
 
     @Id
-    @ManyToOne
     private Accidente accidente;
 
-    @Id
-    @ManyToOne
-    private FactorRiesgo factorRiesgo;
-
-    private Integer peso;
+    @ManyToMany
+    List<FactorRiesgo> factoresRiesgo;
 
     public AccidenteFactorRiesgo() {
     }
 
-    public AccidenteFactorRiesgo(Accidente accidente, FactorRiesgo factorRiesgo, Integer peso) {
+    public AccidenteFactorRiesgo(Accidente accidente, List factorRiesgo) {
         this.accidente = accidente;
-        this.factorRiesgo = factorRiesgo;
-        this.peso = peso;
+        this.factoresRiesgo = factorRiesgo;
     }
 
 	@Override
@@ -33,8 +26,7 @@ public class AccidenteFactorRiesgo implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accidente == null) ? 0 : accidente.hashCode());
-		result = prime * result + ((factorRiesgo == null) ? 0 : factorRiesgo.hashCode());
-		result = prime * result + ((peso == null) ? 0 : peso.hashCode());
+		result = prime * result + ((factoresRiesgo == null) ? 0 : factoresRiesgo.hashCode());
 		return result;
 	}
 
@@ -52,17 +44,13 @@ public class AccidenteFactorRiesgo implements Serializable {
 				return false;
 		} else if (!accidente.equals(other.accidente))
 			return false;
-		if (factorRiesgo == null) {
-			if (other.factorRiesgo != null)
+		if (factoresRiesgo == null) {
+			if (other.factoresRiesgo != null)
 				return false;
-		} else if (!factorRiesgo.equals(other.factorRiesgo))
-			return false;
-		if (peso == null) {
-			if (other.peso != null)
-				return false;
-		} else if (!peso.equals(other.peso))
+		} else if (!factoresRiesgo.equals(other.factoresRiesgo))
 			return false;
 		return true;
 	}
+
 
 }

@@ -1,0 +1,82 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/WEB-INF/plantillas/base.zul"?>
+
+<zk>
+	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
+
+	<window self="@{define(contenido)}" title="Gestión de vias"
+		border="normal" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.esei.mei.jpamer.vistas.ViaVM')"
+		vflex="1" validationMessages="@id('vmsgs')">
+
+		<groupbox mold="3d" closable="false">
+			<caption label="Buscador de vias">
+				<hlayout hflex="min">
+					<textbox width="350px"
+						value="@bind(vm.textoBusqueda)" />
+
+					<button label="Buscar ID"
+						onClick="@command('buscarID')" />
+					<button label="Buscar Nombre"
+						onClick="@command('buscarNombre')" />
+					<button label="Ver todos"
+						onClick="@command('buscarTodos')" />
+
+					<space width="50px" />
+					<button label="Nueva via"
+						onClick="@command('nuevaVia')" />
+
+				</hlayout>
+			</caption>
+
+			<listbox model=" @load(vm.vias)"
+				selectedItem="@save(vm.viaActual)"
+				emptyMessage="No hay vias que mostrar" rows="5"
+				sizedByContent="true" span="true">
+				<listhead>
+					<listheader label="Nombre" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model" var="via">
+					<listitem>
+						<listcell>
+							<label value="@bind(via.nombre)" />
+						</listcell>
+						<listcell>
+							<hlayout>
+								<button label="Editar"
+									onClick="@command('editar', viaEditar=via)" />
+								<button label="Eliminar"
+									onClick="@command('eliminar', viaEliminar=via)" />
+							</hlayout>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<separator />
+
+		<window title="Editor de vias" mode="modal" closable="true"
+			border="normal" position="center"
+			onClose="self.setVisible(false); event.stopPropagation()"
+			form="@id('via') @load(vm.viaActual) @save(vm.viaActual, before='guardarVia')"
+			visible="@load(not empty vm.viaActual)">
+			<grid hflex="min">
+				<rows>
+					<row>
+						<label value="Nombre:" />
+						<textbox value="@bind(via.nombre)"
+							width="450px" />
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button label="Guardar"
+					disabled="@load(not viaStatus.dirty)"
+					onClick="@command('guardarVia')" />
+
+				<button label="Cancelar"
+					onClick="@command('cancelarEdicion')" />
+			</hlayout>
+		</window>
+	</window>
+</zk>

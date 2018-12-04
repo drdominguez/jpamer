@@ -6,7 +6,7 @@
 	version="3.0">
 
 	<description><![CDATA[My ZK Application]]></description>
-	<display-name>pedidos</display-name>
+	<display-name>accidentes</display-name>
 	<listener>
 		<description>
 		Used to cleanup when a session is destroyed</description>

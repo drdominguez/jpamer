@@ -1,9 +1,10 @@
 <toolbar orient="vertical">
-	<toolbarbutton label="Clientes" href="/clientes.zul" />
-	<toolbarbutton label="Articulos" href="/articulos.zul" />
-	<toolbarbutton label="Familias" href="/familias.zul" />
-	<toolbarbutton label="Almacenes" href="/almacenes.zul" />
-	<toolbarbutton label="Pedidos" href="/pedidos.zul" />
+	<toolbarbutton label="Accidentes" href="/accidente.zul" />
+	<toolbarbutton label="F. Riesgos" href="/factorRiesgo.zul" />
+	<toolbarbutton label="Localiades" href="/localidad.zul" />
+	<toolbarbutton label="Vehiculos" href="/vehiculo.zul" />
+	<toolbarbutton label="Vías" href="/via.zul" />
+	<toolbarbutton label="Victimas" href="/victima.zul" />
 	<separator />
-	<toolbarbutton label="Principal" href="/index.zul" />
+	<toolbarbutton label="Inicio" href="/index.zul" />
 </toolbar>

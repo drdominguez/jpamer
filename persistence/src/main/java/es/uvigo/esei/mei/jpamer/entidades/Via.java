@@ -2,6 +2,8 @@ package es.uvigo.esei.mei.jpamer.entidades;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,7 @@ public class Via {
 
     private enum TipoVia{CONVENCIONAL,AUTOVIA,AUTOPISTA,NACIONAL,SECUNDARIA};
 
+    @Enumerated(EnumType.STRING)
     TipoVia tipoVia;
     /*@Embedded
     private Direccion direccion;*/

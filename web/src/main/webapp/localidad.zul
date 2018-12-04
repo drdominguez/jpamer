@@ -2,9 +2,10 @@
 
 <zk>
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
-	<window self="@{define(contenido)}"
-		title="Gestión de familias de artículos" border="normal">
 
-		<button label="Prueba" />
+	<window self="@{define(contenido)}" title="Gestión de localidades"
+		border="normal">
+
+		<label value="Pendiente" />
 	</window>
 </zk>

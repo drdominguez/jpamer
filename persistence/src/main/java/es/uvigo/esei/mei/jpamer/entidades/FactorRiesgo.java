@@ -1,9 +1,13 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class FactorRiesgo {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +23,7 @@ public class FactorRiesgo {
     public FactorRiesgo() {
 		// TODO Auto-generated constructor stub
 	}
-    
+    @Enumerated(EnumType.STRING)
     Tipo tipo;
     
     public FactorRiesgo(String nombre, String descripcion,Tipo tipo) {

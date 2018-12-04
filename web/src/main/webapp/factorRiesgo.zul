@@ -2,9 +2,10 @@
 
 <zk>
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
-	<window self="@{define(contenido)} }" title="Gestión de almacenes"
+
+	<window self="@{define(contenido)}" title="Gestión Factores de Riesgo"
 		border="normal">
 
-		<button label="Prueba" />
+		<label value="Pendiente" />
 	</window>
 </zk>

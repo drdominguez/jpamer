@@ -1,6 +1,8 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-public class AccidenteVictimaID {
+import java.io.Serializable;
+
+public class AccidenteVictimaID implements Serializable {
 	private long accidente;
 	private long victima;
 	@Override

@@ -1,10 +1,14 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Victima {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +18,7 @@ public class Victima {
 
     private enum Estado{LEVE,GRAVE,FALLECIDO}
     
+    @Enumerated(EnumType.STRING)
     Estado estado;
 
     /*@Embedded

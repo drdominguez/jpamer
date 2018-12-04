@@ -1,31 +1,33 @@
 package es.uvigo.esei.mei.jpamer.entidades;
 
-import java.util.List;
 
+import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-
+@Entity
 public class Accidente {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idAccidente;
 
-    private String descripcion;
+    private String nombre;
     
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    List<FactorRiesgo> factoresRiesgo;
+    Set<FactorRiesgo> factoresRiesgo;
     
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Vehiculo> vehiculos;
+    private Set<Vehiculo> vehiculos;
 
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<AccidenteVictima> victimas;
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="accidente")
+    private Set<AccidenteVictima> victimas;
     
     @ManyToOne
     private Localidad localidad;
@@ -36,26 +38,20 @@ public class Accidente {
 	public Accidente() {
 		// TODO Auto-generated constructor stub
 	}
-	 public Accidente(String descripcion) {
-	        this.descripcion = descripcion;
+	 public Accidente(String nombre) {
+	        this.nombre = nombre;
 	    }
-	public long getIdAccidente() {
-		return idAccidente;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setIdAccidente(long idAccidente) {
-		this.idAccidente = idAccidente;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + (int) (idAccidente ^ (idAccidente >>> 32));
 		return result;
 	}
@@ -68,10 +64,10 @@ public class Accidente {
 		if (getClass() != obj.getClass())
 			return false;
 		Accidente other = (Accidente) obj;
-		if (descripcion == null) {
-			if (other.descripcion != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!descripcion.equals(other.descripcion))
+		} else if (!nombre.equals(other.nombre))
 			return false;
 		if (idAccidente != other.idAccidente)
 			return false;
@@ -79,7 +75,7 @@ public class Accidente {
 	}
 	@Override
 	public String toString() {
-		return "Accidente [idAccidente=" + idAccidente + ", descripcion=" + descripcion + "]";
+		return "Accidente [idAccidente=" + idAccidente + ", nombre=" + nombre + "]";
 	}
 
 }

@@ -3,9 +3,9 @@
 <zk>
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
 
-	<window self="@{define(contenido)}" title="Gestión de pedidos"
+	<window self="@{define(contenido)}" title="Gestión de vehiculos"
 		border="normal">
 
-		<button label="Prueba" />
+		<label value="Pendiente" />
 	</window>
 </zk>

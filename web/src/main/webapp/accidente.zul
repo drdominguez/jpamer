@@ -1,0 +1,81 @@
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/WEB-INF/plantillas/base.zul"?>
+
+<zk>
+	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
+
+	<window self="@{define(contenido)}" title="Gestión de accidentes"
+		border="normal" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('es.uvigo.esei.mei.jpamer.vistas.AccidenteVM')"
+		vflex="1" validationMessages="@id('vmsgs')"> 
+		
+		<groupbox mold="3d" closable="false">
+			<caption label="Buscador de accidentes">
+				<hlayout hflex="min">
+					<textbox width="350px"
+						value="@bind(vm.textoBusqueda)" />
+
+					<button label="Buscar ID"
+						onClick="@command('buscarID')" />
+					<button label="Buscar Nombre"
+						onClick="@command('buscarNombre')" />
+					<button label="Ver todos"
+						onClick="@command('buscarTodos')" />
+
+					<space width="50px" />
+					<button label="Nuevo accidente"
+						onClick="@command('nuevoAccidente')" />
+
+				</hlayout>
+			</caption>
+			
+			<listbox model=" @load(vm.accidentes)"
+				selectedItem="@save(vm.accidenteActual)"
+				emptyMessage="No hay accidentes que mostrar" rows="5"
+				sizedByContent="true" span="true">
+				<listhead>
+					<listheader label="Nombre" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model" var="accidente">
+					<listitem>
+						<listcell>
+							<label value="@bind(accidente.nombre)" />
+						</listcell>
+						<listcell>
+							<hlayout>
+								<button label="Editar"
+									onClick="@command('editar', accidenteEditar=accidente)" />
+								<button label="Eliminar"
+									onClick="@command('eliminar', accidenteEliminar=accidente)" />
+							</hlayout>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<separator />
+
+		<window title="Editor de accidentes" mode="modal" closable="true"
+			border="normal" position="center"
+			onClose="self.setVisible(false); event.stopPropagation()"
+			form="@id('accidente') @load(vm.accidenteActual) @save(vm.accidenteActual, before='guardarAccidente')"
+			visible="@load(not empty vm.accidenteActual)">
+			<grid hflex="min">
+				<rows>
+					<row>
+						<label value="Nombre:" />
+						<textbox value="@bind(accidente.nombre)"	width="450px" />
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button label="Guardar"
+					disabled="@load(not accidenteStatus.dirty)"
+					onClick="@command('guardarAccidente')" />
+
+				<button label="Cancelar"
+					onClick="@command('cancelarEdicion')" />
+			</hlayout>
+		</window>
+	</window>
+</zk>

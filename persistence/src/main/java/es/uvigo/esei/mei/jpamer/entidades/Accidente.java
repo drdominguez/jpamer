@@ -23,7 +23,7 @@ public class Accidente {
     @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     Set<FactorRiesgo> factoresRiesgo;
     
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Vehiculo> vehiculos;
 
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="accidente")
@@ -46,6 +46,43 @@ public class Accidente {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public long getIdAccidente() {
+		return idAccidente;
+	}
+	public void setIdAccidente(long idAccidente) {
+		this.idAccidente = idAccidente;
+	}
+	public Set<FactorRiesgo> getFactoresRiesgo() {
+		return factoresRiesgo;
+	}
+	public void setFactoresRiesgo(Set<FactorRiesgo> factoresRiesgo) {
+		this.factoresRiesgo = factoresRiesgo;
+	}
+	public Set<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+	public void setVehiculos(Set<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+	public Set<AccidenteVictima> getVictimas() {
+		return victimas;
+	}
+	public void setVictimas(Set<AccidenteVictima> victimas) {
+		this.victimas = victimas;
+	}
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
+	}
+	public Via getVia() {
+		return via;
+	}
+	public void setVia(Via via) {
+		this.via = via;
 	}
 	@Override
 	public int hashCode() {

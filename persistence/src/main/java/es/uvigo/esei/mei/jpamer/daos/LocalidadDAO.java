@@ -76,7 +76,7 @@ public class LocalidadDAO {
 	}
 
 	public List<Localidad> buscarPorNombre(String patron) {
-		TypedQuery<Localidad> q = em.createQuery("SELECT l FROM Localida AS l WHERE v.nombre LIKE :patron", Localidad.class);
+		TypedQuery<Localidad> q = em.createQuery("SELECT l FROM Localida AS l WHERE l.nombre LIKE :patron", Localidad.class);
 		q.setParameter("patron", "%" + patron + "%");
 		return q.getResultList();
 	}

@@ -8,6 +8,7 @@ import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 
 import es.uvigo.esei.mei.jpamer.entidades.Accidente;
+import es.uvigo.esei.mei.jpamer.entidades.Vehiculo;
 
 
 public class AccidenteDAO {
@@ -70,6 +71,24 @@ public class AccidenteDAO {
 		return em.find(Accidente.class, id);
 	}
 
+	public Accidente buscarPorIdConVehiculos(Long id) {
+		Accidente a = null;
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			a = em.find(Accidente.class, id);
+			a.getVehiculos();
+			tx.commit();
+		} catch (Exception ex) {
+			if ((tx != null) && (tx.isActive())) {
+				tx.rollback();
+				throw new RollbackException(ex);
+			}
+		}
+		return a;
+	}
+
+	
 	public List<Accidente> buscarTodos() {
 		TypedQuery<Accidente> q = em.createQuery("SELECT a FROM Accidente AS a", Accidente.class);
 		return q.getResultList();

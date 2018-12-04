@@ -4,8 +4,6 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -19,7 +17,7 @@ public class Vehiculo implements Serializable {
 	@Id
 	private String matricula;
 
-	private int anho;
+	private Integer anho;
 
 	private enum TipoVehiculo {
 		TURISMO, BICICLETA, CICLOMOTOR, QUAD, AUTOBÚS, CAMIÓN, ESPECIAL
@@ -49,11 +47,11 @@ public class Vehiculo implements Serializable {
 		this.matricula = matricula;
 	}
 
-	public int getAnho() {
+	public Integer getAnho() {
 		return anho;
 	}
 
-	public void setAnho(int anho) {
+	public void setAnho(Integer anho) {
 		this.anho = anho;
 	}
 
@@ -69,7 +67,7 @@ public class Vehiculo implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + anho;
+		result = prime * result + ((anho == null) ? 0 : anho.hashCode());
 		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
 		result = prime * result + ((tipoVehiculo == null) ? 0 : tipoVehiculo.hashCode());
 		return result;
@@ -84,7 +82,10 @@ public class Vehiculo implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Vehiculo other = (Vehiculo) obj;
-		if (anho != other.anho)
+		if (anho == null) {
+			if (other.anho != null)
+				return false;
+		} else if (!anho.equals(other.anho))
 			return false;
 		if (matricula == null) {
 			if (other.matricula != null)
@@ -98,7 +99,8 @@ public class Vehiculo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Vehiculo [matricula=" + matricula + ", año=" + anho + ", tipoVehiculo=" + tipoVehiculo + "]";
+		return "Vehiculo [matricula=" + matricula + ", anho=" + anho + ", tipoVehiculo=" + tipoVehiculo + "]";
 	}
 
+	
 }

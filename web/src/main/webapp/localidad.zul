@@ -4,8 +4,94 @@
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
 
 	<window self="@{define(contenido)}" title="Gestión de localidades"
-		border="normal">
+		border="normal" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('es.uvigo.esei.mei.jpamer.vistas.LocalidadVM')"
+		vflex="1" validationMessages="@id('vmsgs')"> 
+		
+		<groupbox mold="3d" closable="false">
+			<caption label="Buscador de localidades">
+				<hlayout hflex="min">
+					<textbox width="350px"
+						value="@bind(vm.textoBusqueda)" />
 
-		<label value="Pendiente" />
+					<button label="Buscar ID"
+						onClick="@command('buscarID')" />
+					<button label="Buscar Nombre"
+						onClick="@command('buscarNombre')" />
+					<button label="Ver todos"
+						onClick="@command('buscarTodos')" />
+
+					<space width="50px" />
+					<button label="Nueva localidad"
+						onClick="@command('nuevaLocalidad')" />
+
+				</hlayout>
+			</caption>
+			
+			<listbox model=" @load(vm.localidades)"
+				selectedItem="@save(vm.localidadActual)"
+				emptyMessage="No hay localidades que mostrar" rows="5"
+				sizedByContent="true" span="true">
+				<listhead>
+					<listheader label="Nombre" />
+					<listheader label="Provincia" />
+					<listheader label="Comunidad" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model" var="localidad">
+					<listitem>
+						<listcell>
+							<label value="@bind(localidad.nombre)" />
+						</listcell>
+						<listcell>
+							<label value="@bind(localidad.provincia)" />
+						</listcell>
+						<listcell>
+							<label value="@bind(localidad.comunidad)" />
+						</listcell>
+						<listcell>
+							<hlayout>
+								<button label="Editar"
+									onClick="@command('editar', localidadEditar=localidad)" />
+								<button label="Eliminar"
+									onClick="@command('eliminar', localidadEliminar=localidad)" />
+							</hlayout>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<separator />
+
+		<window title="Editor de localidades" mode="modal" closable="true"
+			border="normal" position="center"
+			onClose="self.setVisible(false); event.stopPropagation()"
+			form="@id('localidad') @load(vm.localidadActual) @save(vm.localidadActual, before='guardarLocalidad')"
+			visible="@load(not empty vm.localidadActual)">
+			<grid hflex="min">
+				<rows>
+					<row>
+						<label value="Nombre:" />
+						<textbox value="@bind(localidad.nombre)"	width="450px" />
+					</row>
+					<row>
+						<label value="Provincia" />
+						<textbox value="@bind(localidad.provincia)"	width="450px" />
+					</row>
+					<row>
+						<label value="Comunidad:" />
+						<textbox value="@bind(localidad.comunidad)"	width="450px" />
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button label="Guardar"
+					disabled="@load(not localidadStatus.dirty)"
+					onClick="@command('guardarLocalidad')" />
+
+				<button label="Cancelar"
+					onClick="@command('cancelarEdicion')" />
+			</hlayout>
+		</window>
 	</window>
 </zk>

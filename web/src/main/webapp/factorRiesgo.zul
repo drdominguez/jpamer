@@ -3,9 +3,95 @@
 <zk>
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
 
-	<window self="@{define(contenido)}" title="Gestión Factores de Riesgo"
-		border="normal">
+	<window self="@{define(contenido)}" title="Gestión de factores de riesgo"
+		border="normal" apply="org.zkoss.bind.BindComposer" 
+		viewModel="@id('vm') @init('es.uvigo.esei.mei.jpamer.vistas.FactorRiesgoVM')"
+		vflex="1" validationMessages="@id('vmsgs')"> 
+		
+		<groupbox mold="3d" closable="false">
+			<caption label="Buscador de factores de riesgo">
+				<hlayout hflex="min">
+					<textbox width="350px"
+						value="@bind(vm.textoBusqueda)" />
 
-		<label value="Pendiente" />
+					<button label="Buscar ID"
+						onClick="@command('buscarID')" />
+					<button label="Buscar Nombre"
+						onClick="@command('buscarNombre')" />
+					<button label="Ver todos"
+						onClick="@command('buscarTodos')" />
+
+					<space width="50px" />
+					<button label="Nuevo factorRiesgo"
+						onClick="@command('nuevoFactorRiesgo')" />
+
+				</hlayout>
+			</caption>
+			
+			<listbox model=" @load(vm.factorRiesgos)"
+				selectedItem="@save(vm.factorRiesgoActual)"
+				emptyMessage="No hay factores de riesgo que mostrar" rows="5"
+				sizedByContent="true" span="true">
+				<listhead>
+					<listheader label="Nombre" />
+					<listheader label="Descripción" />
+					<listheader label="Tipo" />
+					<listheader hflex="min" />
+				</listhead>
+				<template name="model" var="factorRiesgo">
+					<listitem>
+						<listcell>
+							<label value="@bind(factorRiesgo.nombre)" />
+						</listcell>
+						<listcell>
+							<label value="@bind(factorRiesgo.descripcion)" />
+						</listcell>
+						<listcell>
+							<label value="@bind(factorRiesgo.tipo)" />
+						</listcell>
+						<listcell>
+							<hlayout>
+								<button label="Editar"
+									onClick="@command('editar', factorRiesgoEditar=factorRiesgo)" />
+								<button label="Eliminar"
+									onClick="@command('eliminar', factorRiesgoEliminar=factorRiesgo)" />
+							</hlayout>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<separator />
+
+		<window title="Editor de factores de riesgo" mode="modal" closable="true"
+			border="normal" position="center"
+			onClose="self.setVisible(false); event.stopPropagation()"
+			form="@id('factorRiesgo') @load(vm.factorRiesgoActual) @save(vm.factorRiesgoActual, before='guardarFactorRiesgo')"
+			visible="@load(not empty vm.factorRiesgoActual)">
+			<grid hflex="min">
+				<rows>
+					<row>
+						<label value="Nombre:" />
+						<textbox value="@bind(factorRiesgo.nombre)"	width="450px" />
+					</row>
+					<row>
+						<label value="Descripción:" />
+						<textbox value="@bind(factorRiesgo.descripcion)"	width="450px" />
+					</row>
+					<row>
+						<label value="Tipo de factor de riesgo:" />
+						<textbox value="@bind(factorRiesgo.tipo)"	width="450px" />
+					</row>
+				</rows>
+			</grid>
+			<hlayout>
+				<button label="Guardar"
+					disabled="@load(not factorRiesgoStatus.dirty)"
+					onClick="@command('guardarFactorRiesgo')" />
+
+				<button label="Cancelar"
+					onClick="@command('cancelarEdicion')" />
+			</hlayout>
+		</window>
 	</window>
 </zk>

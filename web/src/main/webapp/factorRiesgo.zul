@@ -79,8 +79,15 @@
 						<textbox value="@bind(factorRiesgo.descripcion)"	width="450px" />
 					</row>
 					<row>
-						<label value="Tipo de factor de riesgo:" />
-						<textbox value="@bind(factorRiesgo.tipo)"	width="450px" />
+						<label value="Tipo de factor de riesgo" />
+						<listbox mold="select"
+							model="@load(vm.valoresTipo)" 
+							selectedItem="@save(factorRiesgo.tipo)">
+							<template name="model" var="each">
+								<listitem label="@load(each)"
+									value="@bind(each)" />
+							</template>
+						</listbox>
 					</row>
 				</rows>
 			</grid>

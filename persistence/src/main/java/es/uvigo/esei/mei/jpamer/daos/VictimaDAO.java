@@ -57,7 +57,7 @@ public class VictimaDAO {
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
-			em.remove(victima);
+			em.remove(em.merge(victima));
 			tx.commit();
 		} catch (Exception ex) {
 			if ((tx != null) && (tx.isActive())) {

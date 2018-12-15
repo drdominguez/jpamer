@@ -11,15 +11,29 @@ import org.zkoss.zkplus.jpa.JpaUtil;
 
 import es.uvigo.esei.mei.jpamer.daos.FactorRiesgoDAO;
 import es.uvigo.esei.mei.jpamer.entidades.FactorRiesgo;
+import es.uvigo.esei.mei.jpamer.entidades.Victima;
 
 public class FactorRiesgoVM {
 	private List<FactorRiesgo> factorRiesgos;
 	private FactorRiesgo factorRiesgoActual;
 	private String textoBusqueda;
 	private boolean edicionNuevoFactorRiesgo;
+	private FactorRiesgo.Tipo tipo;
 	
 	private FactorRiesgoDAO factorRiesgoDAO;
 
+	public FactorRiesgo.Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(FactorRiesgo.Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public FactorRiesgo.Tipo[] getValoresTipo() {
+		return FactorRiesgo.Tipo.values();
+	}
+	
 	
 	public List<FactorRiesgo> getFactorRiesgos() {
 		return factorRiesgos;

@@ -18,10 +18,25 @@ public class VictimaVM {
 	private String textoBusqueda;
 	private boolean edicionNuevaVictima;
 	
+	public Victima.Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Victima.Estado estado) {
+		this.estado = estado;
+	}
+
+	private Victima.Estado estado;
+	
 	private VictimaDAO victimaDAO;
 
 	
-	public List<Victima> getVictima() {
+
+	public Victima.Estado[] getValoresEstado() {
+		return Victima.Estado.values();
+	}
+	
+	public List<Victima> getVictimas() {
 		return victimas;
 	}
 
@@ -120,7 +135,7 @@ public class VictimaVM {
 	}
 
 	@Command
-	@NotifyChange({"victimaActual", "victimas"})
+	@NotifyChange({"victimaActual","victimas"})
 	public void guardarVictima() {
 		if (edicionNuevaVictima) {
 			victimaDAO.crear(victimaActual);

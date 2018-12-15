@@ -17,7 +17,7 @@ public class FactorRiesgo {
     
 	private String descripcion;
     
-    private enum Tipo{CALZADA,ATOMOSFERICO,PUBLICO,PERSONAL};
+    public enum Tipo{CALZADA,ATOMOSFERICO,PUBLICO,PERSONAL};
     
 
     public FactorRiesgo() {

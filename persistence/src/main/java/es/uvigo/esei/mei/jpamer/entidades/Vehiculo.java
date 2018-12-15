@@ -19,7 +19,7 @@ public class Vehiculo implements Serializable {
 
 	private Integer anho;
 
-	private enum TipoVehiculo {
+	public enum TipoVehiculo {
 		TURISMO, BICICLETA, CICLOMOTOR, QUAD, AUTOBÚS, CAMIÓN, ESPECIAL
 	};
 

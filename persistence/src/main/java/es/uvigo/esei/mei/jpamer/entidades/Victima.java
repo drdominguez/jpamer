@@ -16,7 +16,7 @@ public class Victima {
 
     private String nombre;
 
-    private enum Estado{LEVE,GRAVE,FALLECIDO}
+    public enum Estado{LEVE,GRAVE,FALLECIDO}
     
     @Enumerated(EnumType.STRING)
     Estado estado;

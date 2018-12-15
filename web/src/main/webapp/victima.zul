@@ -4,10 +4,10 @@
 	<include self="@{define(menu)}" src="/WEB-INF/plantillas/menu.zul" />
 
 	<window self="@{define(contenido)}" title="Gestión de victimas"
-		border="normal" apply="org.zkoss.bind.BindComposer" 
+		border="normal" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('es.uvigo.esei.mei.jpamer.vistas.VictimaVM')"
-		vflex="1" validationMessages="@id('vmsgs')"> 
-		
+		vflex="1" validationMessages="@id('vmsgs')">
+
 		<groupbox mold="3d" closable="false">
 			<caption label="Buscador de victimas">
 				<hlayout hflex="min">
@@ -27,8 +27,8 @@
 
 				</hlayout>
 			</caption>
-			
-			<listbox model=" @load(vm.victima)"
+
+			<listbox model=" @load(vm.victimas)"
 				selectedItem="@save(vm.victimaActual)"
 				emptyMessage="No hay victimas que mostrar" rows="5"
 				sizedByContent="true" span="true">
@@ -68,11 +68,19 @@
 				<rows>
 					<row>
 						<label value="Nombre:" />
-						<textbox value="@bind(victima.nombre)"	width="450px" />
+						<textbox value="@bind(victima.nombre)"
+							width="450px" />
 					</row>
 					<row>
 						<label value="Estado de victima:" />
-						<textbox value="@bind(victima.estado)"	width="450px" />
+						<listbox mold="select"
+							model="@load(vm.valoresEstado)" 
+							selectedItem="@save(victima.estado)">
+							<template name="model" var="each">
+								<listitem label="@load(each)"
+									value="@bind(each)" />
+							</template>
+						</listbox>
 					</row>
 				</rows>
 			</grid>

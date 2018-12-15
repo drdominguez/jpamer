@@ -18,8 +18,20 @@ public class VehiculoVM {
 	private String textoBusqueda;
 	private boolean edicionNuevoVehiculo;
 	
+	private Vehiculo.TipoVehiculo tipoVehiculo;
 	private VehiculoDAO vehiculoDAO;
+	
+	public Vehiculo.TipoVehiculo getEstado() {
+		return tipoVehiculo;
+	}
 
+	public void setTipoVehiculo(Vehiculo.TipoVehiculo tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
+	
+	public Vehiculo.TipoVehiculo[] getValoresTipoVehiculo() {
+		return Vehiculo.TipoVehiculo.values();
+	}
 	
 	public List<Vehiculo> getVehiculos() {
 		return vehiculos;
